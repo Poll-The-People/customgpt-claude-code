@@ -1,0 +1,22 @@
+{
+  "name": "customgpt",
+  "description": "Enterprise RAG for Claude Code via CustomGPT Hosted MCP Server. Query your organization's knowledge bases (runbooks, specs, policies, docs) with industry-leading accuracy and citation support.",
+  "version": "1.0.0",
+  "author": {
+    "name": "CustomGPT.ai",
+    "url": "https://customgpt.ai"
+  },
+  "repository": "https://github.com/Poll-The-People/customgpt-claude-code",
+  "homepage": "https://customgpt.ai",
+  "keywords": [
+    "rag",
+    "knowledge-base",
+    "enterprise",
+    "mcp",
+    "documentation",
+    "search",
+    "retrieval",
+    "ai"
+  ],
+  "license": "MIT"
+}

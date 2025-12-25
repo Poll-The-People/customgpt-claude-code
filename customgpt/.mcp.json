@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "customgpt": {
+      "type": "sse",
+      "url": "https://mcp.customgpt.ai/projects/${CUSTOMGPT_PROJECT_ID}/sse?token=${CUSTOMGPT_MCP_TOKEN}"
+    }
+  }
+}
