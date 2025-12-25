@@ -1,4 +1,4 @@
-# CustomGPT RAG for Claude Code
+# CustomGPT.ai RAG for Claude Code
 
 **Enterprise-grade RAG directly in your terminal.** Query your organization's knowledge bases, runbooks, specs, and documentation without leaving Claude Code.
 
@@ -21,31 +21,32 @@ You are debugging a production issue. You need to know:
 
 ---
 
-## Quick Start (2 minutes)
+## Quick Start (30 seconds)
 
-### 1. Install the Plugin
+### 1. Get Your MCP URL
 
-```bash
-/plugin install customgpt@Poll-The-People-customgpt-claude-code
+From [app.customgpt.ai](https://app.customgpt.ai):
+- Open your agent → **Deploy** → **MCP Server (Beta)** → Copy the **SSE URL**
+
+### 2. Run Setup
+
+```
+/customgpt:setup
 ```
 
-### 2. Set Your Credentials
+Paste your URL when prompted.
 
-Get these from [app.customgpt.ai](https://app.customgpt.ai):
+### 3. Restart Claude Code
 
-```bash
-export CUSTOMGPT_API_KEY="your-api-key"        # Profile -> API Keys
-export CUSTOMGPT_PROJECT_ID="12345"            # From agent URL
-export CUSTOMGPT_MCP_TOKEN="your-mcp-token"    # Deploy -> MCP Server
+The MCP server connects on startup.
+
+### 4. Query Your Docs
+
+```
+/customgpt:ask "What is our deployment process?"
 ```
 
-### 3. Query Your Knowledge Base
-
-```bash
-/customgpt:ask "What is our deployment process for production?"
-```
-
-**That's it.** You now have RAG-powered documentation search in Claude Code.
+**That's it.** RAG-powered documentation search in Claude Code.
 
 ---
 
@@ -63,7 +64,6 @@ Response:
 > According to the Data Handling Guidelines (Section 4.2):
 >
 > PII must be encrypted at rest using AES-256 and in transit using TLS 1.3.
-> Access requires explicit user consent and audit logging.
 >
 > **Source:** `data-handling-guidelines.pdf` (Page 12)
 
@@ -72,8 +72,7 @@ Response:
 Claude autonomously queries your docs when you ask about:
 - Company policies and procedures
 - Internal documentation or runbooks
-- Security and compliance requirements
-- Technical specifications and architecture
+- Technical specifications
 
 Just ask naturally:
 ```
@@ -86,19 +85,10 @@ Claude will fetch the relevant documentation and apply it.
 
 Every answer includes:
 - Source document name
-- Page or section reference
+- Section reference
 - Relevant excerpt
 
 No more "I think I read this somewhere."
-
-### Multi-Agent Support
-
-Switch between knowledge bases on the fly:
-
-```bash
-/customgpt:list-agents          # See all your agents
-/customgpt:use-agent 67890      # Switch to a different one
-```
 
 ---
 
@@ -106,11 +96,9 @@ Switch between knowledge bases on the fly:
 
 | Command | Description |
 |---------|-------------|
-| `/customgpt:setup` | Interactive setup wizard |
-| `/customgpt:ask <question>` | Query the knowledge base |
-| `/customgpt:list-agents` | Show all available agents |
-| `/customgpt:use-agent <id>` | Switch to a different agent |
-| `/customgpt:troubleshoot` | Diagnose configuration issues |
+| `/customgpt:setup` | Connect your knowledge base |
+| `/customgpt:ask <question>` | Query your docs |
+| `/customgpt:troubleshoot` | Check connection status |
 
 ---
 
@@ -128,12 +116,6 @@ Claude fetches your security documentation and compares it against the code.
 
 Get step-by-step procedures from your ops documentation.
 
-### Onboarding
-
-> "What's our standard project structure for Python services?"
-
-New team members get consistent answers from your actual standards.
-
 ### Compliance
 
 > "What are our GDPR requirements for user data deletion?"
@@ -142,38 +124,14 @@ Cite specific policies when implementing compliance features.
 
 ---
 
-## Installation Options
-
-### From the Marketplace (Recommended)
-
-```bash
-/plugin install customgpt@Poll-The-People-customgpt-claude-code
-```
-
-### Add Marketplace First
-
-```bash
-/plugin marketplace add Poll-The-People/customgpt-claude-code
-/plugin install customgpt
-```
-
-### Local Development
-
-```bash
-git clone https://github.com/Poll-The-People/customgpt-claude-code.git
-claude --plugin-dir ./customgpt-claude-code/customgpt
-```
-
----
-
 ## Documentation
 
 | Document | Description |
 |----------|-------------|
-| [Quick Start](docs/QUICKSTART.md) | Tutorial: Zero to first query in 5 minutes |
-| [How-To Guides](docs/HOWTO.md) | Task-oriented guides for common scenarios |
-| [Reference](docs/REFERENCE.md) | Complete command and configuration reference |
-| [Explanation](docs/EXPLANATION.md) | How RAG works, architecture, and design decisions |
+| [Quick Start](docs/QUICKSTART.md) | 2-minute setup guide |
+| [How-To Guides](docs/HOWTO.md) | Task-oriented guides |
+| [Reference](docs/REFERENCE.md) | Command and configuration reference |
+| [Explanation](docs/EXPLANATION.md) | How RAG works, architecture |
 
 ---
 
@@ -189,17 +147,14 @@ claude --plugin-dir ./customgpt-claude-code/customgpt
 
 - **SOC-2 Type 2 Certified** - CustomGPT.ai infrastructure
 - **TLS Encryption** - All traffic encrypted in transit
-- **No Data Sharing** - Your docs stay in your CustomGPT account
+- **No Data Sharing** - Your docs stay in your CustomGPT.ai account
 - **Token-Based Auth** - Revocable MCP tokens
-
-See [Security](docs/EXPLANATION.md#security-model) for details.
 
 ---
 
 ## Support
 
 - **Documentation:** [docs.customgpt.ai](https://docs.customgpt.ai)
-- **MCP Reference:** [CustomGPT MCP Support](https://docs.customgpt.ai/reference/customgptai-mcp-support)
 - **Issues:** [GitHub Issues](https://github.com/Poll-The-People/customgpt-claude-code/issues)
 - **Email:** hello@customgpt.ai
 

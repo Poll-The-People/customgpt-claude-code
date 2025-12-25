@@ -3,7 +3,7 @@ type: explanation
 audience: developers, architects, engineering-leads
 goal: Understand how RAG works, why design decisions were made, and how the system fits together
 owner: CustomGPT.ai
-last_verified: 2025-12-24
+last_verified: 2025-12-25
 ---
 
 # Explanation
@@ -305,25 +305,19 @@ CustomGPT does NOT:
 
 ### Token Security Best Practices
 
-```bash
-# DO: Store in environment or secrets manager
-export CUSTOMGPT_MCP_TOKEN=$(op read "op://Private/CustomGPT/mcp-token")
+- **DO NOT** share your MCP URL (it contains your token)
+- **DO NOT** include tokens in screenshots or logs
+- **DO NOT** commit MCP URLs to version control
 
-# DO: Add .env to .gitignore
-echo ".env" >> .gitignore
-
-# DO NOT: Commit tokens
-# DO NOT: Share tokens in screenshots or logs
-# DO NOT: Use same token across environments
-```
+The MCP URL is stored in `~/.claude.json` which is a user-specific file that should not be shared.
 
 ### Token Rotation
 
 Rotate tokens periodically:
 
-1. Go to agent -> Deploy -> MCP Server
-2. Click **Regenerate Token**
-3. Update environment variables
+1. Go to app.customgpt.ai → Your Agent → Deploy → MCP Server
+2. Click **Generate New Token**
+3. Run `claude mcp remove customgpt` then `/customgpt:setup` with new URL
 4. Old token is immediately invalidated
 
 ---

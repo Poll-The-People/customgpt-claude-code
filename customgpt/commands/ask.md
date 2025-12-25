@@ -1,8 +1,8 @@
 ---
-description: Query your CustomGPT knowledge base directly with RAG-powered search
+description: Query your CustomGPT.ai knowledge base directly with RAG-powered search
 ---
 
-# CustomGPT Ask
+# CustomGPT.ai Ask
 
 You are processing a direct RAG (Retrieval-Augmented Generation) query to the user's CustomGPT knowledge base.
 

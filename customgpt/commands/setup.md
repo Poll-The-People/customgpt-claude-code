@@ -1,155 +1,56 @@
 ---
-description: Configure CustomGPT RAG integration - connect existing agents or create new ones
+description: Connect your CustomGPT.ai knowledge base to Claude Code
 ---
 
-# CustomGPT Setup Wizard
+# CustomGPT.ai Setup
 
-You are helping the user configure the CustomGPT RAG plugin for Claude Code. This setup supports both new users (who need to create an agent) and existing users (who want to connect their agents).
+You are helping the user connect their CustomGPT.ai knowledge base to Claude Code. This is a simple 2-step process.
 
-## Step 1: Check Prerequisites
+## Step 1: Get the MCP URL
 
-First, verify the user has:
-1. A CustomGPT.ai account at https://app.customgpt.ai (free trial available)
-2. An API key for REST operations
+Ask the user to paste their CustomGPT.ai MCP Server URL:
 
-Ask the user: "Do you have a CustomGPT.ai account? If not, you can sign up at https://app.customgpt.ai"
+"Please paste your **CustomGPT.ai MCP Server URL**.
 
-## Step 2: Get API Key
+To get it:
+1. Go to https://app.customgpt.ai
+2. Open your agent (knowledge base)
+3. Click **Deploy** in the left sidebar
+4. Click **MCP Server (Beta)**
+5. Copy the **SSE URL**
 
-Guide the user to get their REST API key:
-1. Log in to https://app.customgpt.ai
-2. Click on their profile icon → API Keys
-3. Generate or copy an existing API key
+It looks like: `https://mcp.customgpt.ai/projects/12345/sse?token=abc123...`"
 
-Have them set the environment variable:
-```bash
-export CUSTOMGPT_API_KEY="<their-api-key>"
-```
+## Step 2: Configure the MCP Server
 
-**Check if env vars are set** (without exposing values):
-```bash
-echo "CUSTOMGPT_API_KEY: $([ -n \"$CUSTOMGPT_API_KEY\" ] && echo 'SET (length: '${#CUSTOMGPT_API_KEY}')' || echo 'NOT SET')"
-echo "CUSTOMGPT_PROJECT_ID: ${CUSTOMGPT_PROJECT_ID:-NOT SET}"
-echo "CUSTOMGPT_MCP_TOKEN: $([ -n \"$CUSTOMGPT_MCP_TOKEN\" ] && echo 'SET (length: '${#CUSTOMGPT_MCP_TOKEN}')' || echo 'NOT SET')"
-```
+When the user provides the URL:
 
-## Step 3: Check for Existing Agents
+1. **Validate the URL format** - It must match:
+   - Starts with `https://mcp.customgpt.ai/projects/`
+   - Contains a numeric project ID
+   - Has `sse?token=` with a token value
 
-Use the Bash tool to list existing agents. **Important:** The API key may contain special characters like `|`, so always use proper quoting:
+2. **Run this command** to add the MCP server:
+   ```bash
+   claude mcp add --transport sse customgpt "<THE_URL_USER_PROVIDED>"
+   ```
 
-```bash
-curl -s -X GET "https://app.customgpt.ai/api/v1/projects" \
-  -H "Authorization: Bearer ${CUSTOMGPT_API_KEY}" \
-  -H "Accept: application/json" | jq '.data.data[] | {id, project_name, created_at}'
-```
+3. **Tell the user to restart Claude Code** for the MCP server to connect.
 
-If that fails with auth errors, try reading the key directly from the .env file:
+## Step 3: Confirm Success
 
-```bash
-API_KEY=$(grep CUSTOMGPT_API_KEY .env | cut -d'"' -f2)
-curl -s -X GET "https://app.customgpt.ai/api/v1/projects" \
-  -H "Authorization: Bearer $API_KEY" \
-  -H "Accept: application/json" | jq '.data.data[] | {id, project_name, created_at}'
-```
+After the user restarts Claude Code:
 
-### Path A: User Has Existing Agents
+"**Setup complete!**
 
-If agents exist, display them in a table format:
+To verify, run `/mcp` - you should see `customgpt` listed as connected with 28 tools.
 
-| ID | Name | Created |
-|----|------|---------|
-| ... | ... | ... |
-
-Ask: "Which agent would you like to use? Enter the ID or name."
-
-Once selected, proceed to Step 4.
-
-### Path B: User Needs to Create an Agent
-
-If no agents exist, guide the user through creation:
-
-**Option 1: Create from Sitemap**
-```bash
-curl -s -X POST "https://app.customgpt.ai/api/v1/projects" \
-  -H "Authorization: Bearer $CUSTOMGPT_API_KEY" \
-  -H "Content-Type: multipart/form-data" \
-  -F "project_name=My Knowledge Base" \
-  -F "sitemap_path=https://example.com/sitemap.xml"
-```
-
-**Option 2: Create from URL**
-Ask the user for a documentation URL or sitemap URL to index.
-
-After creation, note the returned `id` field - this is the Project ID.
-
-## Step 4: Enable MCP Server and Get Token
-
-Guide the user to enable the MCP Server for their agent:
-
-1. Go to https://app.customgpt.ai/projects/{projectId}
-2. Click **Deploy** in the left sidebar
-3. Click **MCP Server (Beta)**
-4. Click **Generate MCP Token**
-5. Copy the generated token
-
-Have them set the environment variables:
-```bash
-export CUSTOMGPT_PROJECT_ID="<project-id>"
-export CUSTOMGPT_MCP_TOKEN="<mcp-token>"
-```
-
-## Step 5: Configure MCP Server
-
-Due to a known issue with environment variable expansion in plugin configs, we need to add the MCP server to the user's global Claude config.
-
-Run this command to add the CustomGPT MCP server to `~/.claude.json`:
-
-```bash
-# Read existing config, add MCP server, write back
-CLAUDE_CONFIG=~/.claude.json
-PROJECT_ID="$CUSTOMGPT_PROJECT_ID"
-MCP_TOKEN="$CUSTOMGPT_MCP_TOKEN"
-
-# Check if file exists and has mcpServers
-if [ -f "$CLAUDE_CONFIG" ]; then
-  # Add or update the customgpt MCP server
-  jq --arg url "https://mcp.customgpt.ai/projects/$PROJECT_ID/sse?token=$MCP_TOKEN" \
-    '.mcpServers.customgpt = {"type": "sse", "url": $url}' \
-    "$CLAUDE_CONFIG" > "$CLAUDE_CONFIG.tmp" && mv "$CLAUDE_CONFIG.tmp" "$CLAUDE_CONFIG"
-  echo "✅ Added CustomGPT MCP server to ~/.claude.json"
-else
-  # Create new config with MCP server
-  echo "{\"mcpServers\":{\"customgpt\":{\"type\":\"sse\",\"url\":\"https://mcp.customgpt.ai/projects/$PROJECT_ID/sse?token=$MCP_TOKEN\"}}}" | jq . > "$CLAUDE_CONFIG"
-  echo "✅ Created ~/.claude.json with CustomGPT MCP server"
-fi
-```
-
-**Important:** After running this, the user must restart Claude Code for the MCP server to connect.
-
-## Step 6: Verify Configuration
-
-Test the connection by making a simple query:
-
-Use the `mcp__customgpt__send_message` tool or `query_customgpt_knowledge_base` tool with a test message.
-
-If successful, display the response and confirm setup is complete.
-
-## Step 7: Confirm Success
-
-Once verified, inform the user:
-
-**Setup Complete!**
-
-You can now:
-- Use `/customgpt:ask <question>` for direct queries
-- Claude will automatically use RAG when you ask about documented topics
-- Use `/customgpt:list-agents` to see all your agents
-- Use `/customgpt:use-agent <id>` to switch agents
+Try asking: *What topics are covered in my knowledge base?*"
 
 ## Troubleshooting
 
-If any step fails:
-- **API key invalid**: Regenerate at Profile → API Keys
-- **No agents found**: Create one using a sitemap or file upload
-- **MCP token issues**: Regenerate at Deploy → MCP Server
-- **Connection failed**: Run `/customgpt:troubleshoot` for diagnostics
+If the URL is invalid:
+- "That doesn't look like a valid CustomGPT.ai MCP URL. Please make sure you copied the SSE URL from Deploy → MCP Server."
+
+If the command fails:
+- "There was an issue adding the MCP server. Please try running `/customgpt:troubleshoot` for diagnostics."

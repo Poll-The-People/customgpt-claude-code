@@ -1,11 +1,11 @@
 ---
 name: customgpt-rag-retrieval
-description: Automatically retrieve relevant information from the organization's CustomGPT knowledge base when answering questions about documented topics, policies, procedures, or technical specifications.
+description: Automatically retrieve relevant information from the organization's CustomGPT.ai knowledge base when answering questions about documented topics, policies, procedures, or technical specifications.
 ---
 
-# CustomGPT RAG Retrieval Skill
+# CustomGPT.ai RAG Retrieval Skill
 
-You have access to an enterprise knowledge base via CustomGPT's RAG (Retrieval-Augmented Generation) system. Use this skill to ground your answers in authoritative organizational documentation.
+You have access to an enterprise knowledge base via CustomGPT.ai's RAG (Retrieval-Augmented Generation) system. Use this skill to ground your answers in authoritative organizational documentation.
 
 ## When to Use This Skill
 

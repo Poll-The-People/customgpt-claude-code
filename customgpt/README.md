@@ -1,55 +1,40 @@
-# CustomGPT RAG for Claude Code
+# CustomGPT.ai RAG for Claude Code
 
-Query your organization's knowledge bases directly from Claude Code. Get answers from runbooks, specs, policies, and documentation with citations.
+Query your knowledge base directly from Claude Code. Get answers from your runbooks, specs, policies, and documentation with citations.
 
-## Installation
+## Setup (30 seconds)
 
-```bash
-/plugin install customgpt@Poll-The-People-customgpt-claude-code
-```
+1. **Get your MCP URL** from [app.customgpt.ai](https://app.customgpt.ai):
+   - Open your agent
+   - Click **Deploy** → **MCP Server (Beta)**
+   - Copy the **SSE URL**
 
-## Setup
-
-1. **Get credentials from [app.customgpt.ai](https://app.customgpt.ai):**
-   - API Key: Profile -> API Keys
-   - Project ID: From agent URL (`/projects/12345`)
-   - MCP Token: Agent -> Deploy -> MCP Server (Beta)
-
-2. **Set environment variables:**
-   ```bash
-   export CUSTOMGPT_API_KEY="your-api-key"
-   export CUSTOMGPT_PROJECT_ID="12345"
-   export CUSTOMGPT_MCP_TOKEN="your-mcp-token"
+2. **Run setup** in Claude Code:
    ```
-
-3. **Configure MCP server:**
-   ```bash
-   jq --arg url "https://mcp.customgpt.ai/projects/$CUSTOMGPT_PROJECT_ID/sse?token=$CUSTOMGPT_MCP_TOKEN" \
-     '.mcpServers.customgpt = {"type": "sse", "url": $url}' \
-     ~/.claude.json > ~/.claude.json.tmp && mv ~/.claude.json.tmp ~/.claude.json
+   /customgpt:setup
    ```
-   Then restart Claude Code.
+   Paste your URL when prompted.
 
-4. **Test:**
-   ```bash
-   /customgpt:ask "What topics are covered in this knowledge base?"
+3. **Restart Claude Code** for the MCP server to connect.
+
+4. **Try it:**
+   ```
+   /customgpt:ask "What topics are covered in my knowledge base?"
    ```
 
 ## Commands
 
 | Command | Description |
 |---------|-------------|
-| `/customgpt:setup` | Interactive setup wizard |
-| `/customgpt:ask <question>` | Query the knowledge base |
-| `/customgpt:list-agents` | Show all available agents |
-| `/customgpt:use-agent <id>` | Switch to a different agent |
-| `/customgpt:troubleshoot` | Diagnose configuration issues |
+| `/customgpt:setup` | Connect your knowledge base |
+| `/customgpt:ask <question>` | Query your docs |
+| `/customgpt:troubleshoot` | Check connection status |
 
 ## Features
 
 - **Instant RAG queries** - Ask questions, get cited answers
 - **Automatic retrieval** - Claude fetches docs when relevant
-- **Multi-agent support** - Switch between knowledge bases
+- **28 MCP tools** - Full CustomGPT.ai API access
 - **Enterprise security** - SOC-2 Type 2 certified
 
 ## Example
@@ -75,23 +60,12 @@ Source: api-guidelines.md (Section 4.2)
 - CustomGPT.ai account ([free trial](https://app.customgpt.ai))
 - At least one agent with indexed content
 
-## Documentation
+## Need Help?
 
-- [Quick Start](https://github.com/Poll-The-People/customgpt-claude-code/blob/main/docs/QUICKSTART.md)
-- [How-To Guides](https://github.com/Poll-The-People/customgpt-claude-code/blob/main/docs/HOWTO.md)
-- [Reference](https://github.com/Poll-The-People/customgpt-claude-code/blob/main/docs/REFERENCE.md)
-- [CustomGPT Docs](https://docs.customgpt.ai)
-
-## Support
-
-- **Issues:** [GitHub Issues](https://github.com/Poll-The-People/customgpt-claude-code/issues)
-- **Email:** hello@customgpt.ai
-- **Docs:** [docs.customgpt.ai](https://docs.customgpt.ai)
+- [CustomGPT.ai Docs](https://docs.customgpt.ai)
+- [GitHub Issues](https://github.com/Poll-The-People/customgpt-claude-code/issues)
+- Email: hello@customgpt.ai
 
 ## License
 
-MIT License
-
----
-
-Built by [CustomGPT.ai](https://customgpt.ai) - The #1 RAG API for Enterprise
+MIT License - Built by [CustomGPT.ai](https://customgpt.ai)
