@@ -26,13 +26,29 @@ Have them set the environment variable:
 export CUSTOMGPT_API_KEY="<their-api-key>"
 ```
 
+**Check if env vars are set** (without exposing values):
+```bash
+echo "CUSTOMGPT_API_KEY: $([ -n \"$CUSTOMGPT_API_KEY\" ] && echo 'SET (length: '${#CUSTOMGPT_API_KEY}')' || echo 'NOT SET')"
+echo "CUSTOMGPT_PROJECT_ID: ${CUSTOMGPT_PROJECT_ID:-NOT SET}"
+echo "CUSTOMGPT_MCP_TOKEN: $([ -n \"$CUSTOMGPT_MCP_TOKEN\" ] && echo 'SET (length: '${#CUSTOMGPT_MCP_TOKEN}')' || echo 'NOT SET')"
+```
+
 ## Step 3: Check for Existing Agents
 
-Use the Bash tool to list existing agents:
+Use the Bash tool to list existing agents. **Important:** The API key may contain special characters like `|`, so always use proper quoting:
 
 ```bash
 curl -s -X GET "https://app.customgpt.ai/api/v1/projects" \
-  -H "Authorization: Bearer $CUSTOMGPT_API_KEY" \
+  -H "Authorization: Bearer ${CUSTOMGPT_API_KEY}" \
+  -H "Accept: application/json" | jq '.data.data[] | {id, project_name, created_at}'
+```
+
+If that fails with auth errors, try reading the key directly from the .env file:
+
+```bash
+API_KEY=$(grep CUSTOMGPT_API_KEY .env | cut -d'"' -f2)
+curl -s -X GET "https://app.customgpt.ai/api/v1/projects" \
+  -H "Authorization: Bearer $API_KEY" \
   -H "Accept: application/json" | jq '.data.data[] | {id, project_name, created_at}'
 ```
 
