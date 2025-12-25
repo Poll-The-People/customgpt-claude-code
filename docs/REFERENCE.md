@@ -314,14 +314,14 @@ The plugin includes an MCP configuration file that defines the SSE server connec
 **Contents:**
 ```json
 {
-  "mcpServers": {
-    "customgpt": {
-      "type": "sse",
-      "url": "https://mcp.customgpt.ai/projects/${CUSTOMGPT_PROJECT_ID}/sse?token=${CUSTOMGPT_MCP_TOKEN}"
-    }
+  "customgpt": {
+    "type": "sse",
+    "url": "https://mcp.customgpt.ai/projects/${CUSTOMGPT_PROJECT_ID}/sse?token=${CUSTOMGPT_MCP_TOKEN}"
   }
 }
 ```
+
+> **Note:** Plugin `.mcp.json` files use a flat server format (no `"mcpServers"` wrapper), unlike project-level `.mcp.json` files.
 
 **Fields:**
 

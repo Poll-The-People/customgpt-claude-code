@@ -143,7 +143,22 @@ export CUSTOMGPT_MCP_TOKEN="your-mcp-token"   # The token you just copied
 
 ---
 
-## Step 5: Run Your First Query
+## Step 5: Configure MCP Server
+
+Add the CustomGPT MCP server to your Claude config:
+
+```bash
+# Add CustomGPT MCP server to ~/.claude.json
+jq --arg url "https://mcp.customgpt.ai/projects/$CUSTOMGPT_PROJECT_ID/sse?token=$CUSTOMGPT_MCP_TOKEN" \
+  '.mcpServers.customgpt = {"type": "sse", "url": $url}' \
+  ~/.claude.json > ~/.claude.json.tmp && mv ~/.claude.json.tmp ~/.claude.json
+```
+
+**Then restart Claude Code** for the MCP server to connect.
+
+---
+
+## Step 6: Run Your First Query
 
 Now test the connection:
 

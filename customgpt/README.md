@@ -22,7 +22,15 @@ Query your organization's knowledge bases directly from Claude Code. Get answers
    export CUSTOMGPT_MCP_TOKEN="your-mcp-token"
    ```
 
-3. **Test:**
+3. **Configure MCP server:**
+   ```bash
+   jq --arg url "https://mcp.customgpt.ai/projects/$CUSTOMGPT_PROJECT_ID/sse?token=$CUSTOMGPT_MCP_TOKEN" \
+     '.mcpServers.customgpt = {"type": "sse", "url": $url}' \
+     ~/.claude.json > ~/.claude.json.tmp && mv ~/.claude.json.tmp ~/.claude.json
+   ```
+   Then restart Claude Code.
+
+4. **Test:**
    ```bash
    /customgpt:ask "What topics are covered in this knowledge base?"
    ```

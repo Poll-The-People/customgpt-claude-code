@@ -82,15 +82,43 @@ export CUSTOMGPT_PROJECT_ID="<project-id>"
 export CUSTOMGPT_MCP_TOKEN="<mcp-token>"
 ```
 
-## Step 5: Verify Configuration
+## Step 5: Configure MCP Server
+
+Due to a known issue with environment variable expansion in plugin configs, we need to add the MCP server to the user's global Claude config.
+
+Run this command to add the CustomGPT MCP server to `~/.claude.json`:
+
+```bash
+# Read existing config, add MCP server, write back
+CLAUDE_CONFIG=~/.claude.json
+PROJECT_ID="$CUSTOMGPT_PROJECT_ID"
+MCP_TOKEN="$CUSTOMGPT_MCP_TOKEN"
+
+# Check if file exists and has mcpServers
+if [ -f "$CLAUDE_CONFIG" ]; then
+  # Add or update the customgpt MCP server
+  jq --arg url "https://mcp.customgpt.ai/projects/$PROJECT_ID/sse?token=$MCP_TOKEN" \
+    '.mcpServers.customgpt = {"type": "sse", "url": $url}' \
+    "$CLAUDE_CONFIG" > "$CLAUDE_CONFIG.tmp" && mv "$CLAUDE_CONFIG.tmp" "$CLAUDE_CONFIG"
+  echo "✅ Added CustomGPT MCP server to ~/.claude.json"
+else
+  # Create new config with MCP server
+  echo "{\"mcpServers\":{\"customgpt\":{\"type\":\"sse\",\"url\":\"https://mcp.customgpt.ai/projects/$PROJECT_ID/sse?token=$MCP_TOKEN\"}}}" | jq . > "$CLAUDE_CONFIG"
+  echo "✅ Created ~/.claude.json with CustomGPT MCP server"
+fi
+```
+
+**Important:** After running this, the user must restart Claude Code for the MCP server to connect.
+
+## Step 6: Verify Configuration
 
 Test the connection by making a simple query:
 
-Use the `mcp__customgpt__send_message` tool with message: "Hello, what topics are covered in this knowledge base?"
+Use the `mcp__customgpt__send_message` tool or `query_customgpt_knowledge_base` tool with a test message.
 
 If successful, display the response and confirm setup is complete.
 
-## Step 6: Confirm Success
+## Step 7: Confirm Success
 
 Once verified, inform the user:
 
