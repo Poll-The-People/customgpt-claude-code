@@ -22,8 +22,9 @@ last_verified: 2025-12-25
 1. Go to [app.customgpt.ai](https://app.customgpt.ai)
 2. Open your agent (knowledge base)
 3. Click **Deploy** in the left sidebar
-4. Click **MCP Server (Beta)**
-5. Copy the **SSE URL**
+4. Click **MCP Server - BETA**
+5. Click the **SSE** tab
+6. Copy the full URL
 
 It looks like:
 ```
@@ -91,7 +92,7 @@ Your CustomGPT.ai knowledge base is now connected to Claude Code.
 | Issue | Solution |
 |-------|----------|
 | MCP server not connecting | Restart Claude Code |
-| Token expired | Get a new MCP URL from app.customgpt.ai |
+| Token expired | Deploy → MCP Server - BETA → SSE tab → Copy new URL |
 | No results | Make sure your agent has indexed content |
 
 Need help? [docs.customgpt.ai](https://docs.customgpt.ai) or email hello@customgpt.ai

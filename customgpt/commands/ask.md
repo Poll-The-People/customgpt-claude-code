@@ -48,7 +48,7 @@ If the query fails:
 
 ### Token/Auth Issues
 - "Authentication failed" → Suggest running `/customgpt:setup`
-- "Token expired" → Guide to regenerate at Deploy → MCP Server
+- "Token expired" → Guide to regenerate at Deploy → MCP Server - BETA → SSE tab
 
 ### No Results
 - If CustomGPT returns empty or "no relevant content":

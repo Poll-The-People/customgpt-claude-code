@@ -50,8 +50,9 @@ Complete reference for CustomGPT.ai RAG for Claude Code.
 > To get it:
 > 1. Go to https://app.customgpt.ai
 > 2. Open your agent
-> 3. Click Deploy → MCP Server (Beta)
-> 4. Copy the SSE URL
+> 3. Click Deploy → MCP Server - BETA
+> 4. Click the SSE tab
+> 5. Copy the full URL
 
 [User pastes URL]
 

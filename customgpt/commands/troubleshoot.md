@@ -25,7 +25,7 @@ Tell the user:
 "The MCP server is configured but may not be connected. Common fixes:
 1. **Restart Claude Code** - MCP servers connect on startup
 2. **Check your URL** - Make sure the MCP token hasn't expired
-3. **Regenerate token** - Go to app.customgpt.ai → Your Agent → Deploy → MCP Server → Generate new token"
+3. **Regenerate token** - Go to app.customgpt.ai → Your Agent → Deploy → MCP Server - BETA → SSE tab → Copy the new URL"
 
 ## Step 2: Test Connection (if configured)
 
@@ -52,7 +52,7 @@ Use the `query_customgpt_knowledge_base` MCP tool with a simple test message lik
 |-------|----------|
 | MCP server not found | Run `/customgpt:setup` |
 | Connection timeout | Restart Claude Code |
-| Token expired | Regenerate MCP token at app.customgpt.ai |
+| Token expired | Deploy → MCP Server - BETA → SSE tab → Copy new URL |
 | 401 Unauthorized | MCP URL is invalid, run setup again |
 
 ## Still Having Issues?

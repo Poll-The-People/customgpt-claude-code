@@ -315,7 +315,7 @@ The MCP URL is stored in `~/.claude.json` which is a user-specific file that sho
 
 Rotate tokens periodically:
 
-1. Go to app.customgpt.ai → Your Agent → Deploy → MCP Server
+1. Go to app.customgpt.ai → Your Agent → Deploy → MCP Server - BETA → SSE tab
 2. Click **Generate New Token**
 3. Run `claude mcp remove customgpt` then `/customgpt:setup` with new URL
 4. Old token is immediately invalidated

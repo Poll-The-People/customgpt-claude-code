@@ -21,12 +21,29 @@ You are debugging a production issue. You need to know:
 
 ---
 
+## Installation
+
+### From GitHub (Recommended)
+
+```
+/plugin marketplace add Poll-The-People/customgpt-claude-code
+/plugin install customgpt
+```
+
+### Local Development
+
+```bash
+claude --plugin-dir ./customgpt
+```
+
+---
+
 ## Quick Start (30 seconds)
 
 ### 1. Get Your MCP URL
 
 From [app.customgpt.ai](https://app.customgpt.ai):
-- Open your agent → **Deploy** → **MCP Server (Beta)** → Copy the **SSE URL**
+- Open your agent → **Deploy** → **MCP Server - BETA** → **SSE** tab → Copy the URL
 
 ### 2. Run Setup
 

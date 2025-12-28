@@ -16,8 +16,9 @@ To get it:
 1. Go to https://app.customgpt.ai
 2. Open your agent (knowledge base)
 3. Click **Deploy** in the left sidebar
-4. Click **MCP Server (Beta)**
-5. Copy the **SSE URL**
+4. Click **MCP Server - BETA**
+5. Click the **SSE** tab
+6. Copy the full URL shown
 
 It looks like: `https://mcp.customgpt.ai/projects/12345/sse?token=abc123...`"
 
@@ -50,7 +51,7 @@ Try asking: *What topics are covered in my knowledge base?*"
 ## Troubleshooting
 
 If the URL is invalid:
-- "That doesn't look like a valid CustomGPT.ai MCP URL. Please make sure you copied the SSE URL from Deploy → MCP Server."
+- "That doesn't look like a valid CustomGPT.ai MCP URL. Please make sure you copied the URL from Deploy → MCP Server - BETA → SSE tab."
 
 If the command fails:
 - "There was an issue adding the MCP server. Please try running `/customgpt:troubleshoot` for diagnostics."

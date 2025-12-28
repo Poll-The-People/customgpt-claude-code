@@ -1,0 +1,30 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "customgpt-marketplace",
+  "version": "1.1.0",
+  "description": "CustomGPT.ai RAG plugins for Claude Code - Enterprise-grade knowledge base retrieval with citations",
+  "owner": {
+    "name": "CustomGPT.ai",
+    "email": "support@customgpt.ai"
+  },
+  "plugins": [
+    {
+      "name": "customgpt",
+      "description": "Enterprise RAG for Claude Code via CustomGPT.ai. Query your organization's knowledge bases with citations.",
+      "version": "1.1.0",
+      "author": {
+        "name": "CustomGPT.ai",
+        "email": "support@customgpt.ai"
+      },
+      "source": "./customgpt",
+      "category": "productivity",
+      "keywords": [
+        "rag",
+        "knowledge-base",
+        "enterprise",
+        "mcp",
+        "retrieval"
+      ]
+    }
+  ]
+}

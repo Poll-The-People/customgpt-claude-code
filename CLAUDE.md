@@ -10,9 +10,12 @@ This is the **CustomGPT RAG for Claude Code** plugin (v1.1.0) - a Claude Code ma
 
 ## Architecture
 
-### Plugin Structure
+### Repository Structure
 ```
-customgpt/
+.claude-plugin/
+└── marketplace.json          # Marketplace definition (required for /plugin marketplace add)
+
+customgpt/                    # The actual plugin
 ├── .claude-plugin/
 │   └── plugin.json           # Plugin manifest (name, version, description)
 ├── commands/
@@ -22,10 +25,11 @@ customgpt/
 ├── skills/
 │   └── rag-retrieval/
 │       └── SKILL.md          # Autonomous RAG retrieval skill
-└── README.md                  # Marketplace documentation
+└── README.md                  # Plugin documentation
 ```
 
 Root-level files:
+- `.claude-plugin/marketplace.json` - Marketplace catalog (points to plugins in this repo)
 - `.mcp.json` - MCP server configuration (at repo root, not in plugin dir)
 - `docs/` - Diátaxis documentation (QUICKSTART, HOWTO, REFERENCE, EXPLANATION)
 
@@ -75,10 +79,16 @@ claude --plugin-dir ./customgpt
 **Repository**: `Poll-The-People/customgpt-claude-code`
 
 ```bash
-# GitHub Marketplace install
+# Add marketplace from GitHub
 /plugin marketplace add Poll-The-People/customgpt-claude-code
-/plugin install customgpt@Poll-The-People-customgpt-claude-code
+
+# Install the plugin
+/plugin install customgpt
 ```
+
+**Note**: The repo uses a two-file structure:
+- `.claude-plugin/marketplace.json` - Declares this repo as a marketplace
+- `customgpt/.claude-plugin/plugin.json` - Defines the individual plugin
 
 ## Reference Documentation
 

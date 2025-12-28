@@ -118,22 +118,23 @@ Run:
 
 1. Go to [app.customgpt.ai](https://app.customgpt.ai)
 2. Open your agent
-3. Click **Deploy** → **MCP Server (Beta)**
-4. Click **Generate New Token**
-5. Copy the new SSE URL
+3. Click **Deploy** → **MCP Server - BETA**
+4. Click the **SSE** tab
+5. Click **Generate New Token**
+6. Copy the full URL
 
-6. Remove the old configuration:
+7. Remove the old configuration:
    ```bash
    claude mcp remove customgpt
    ```
 
-7. Run setup again:
+8. Run setup again:
    ```
    /customgpt:setup
    ```
    Paste the new URL.
 
-8. Restart Claude Code
+9. Restart Claude Code
 
 ---
 
@@ -160,9 +161,9 @@ Run:
 
 7. Wait for indexing (1-10 minutes depending on size)
 
-8. Once complete, go to **Deploy** → **MCP Server**
+8. Once complete, go to **Deploy** → **MCP Server - BETA** → **SSE** tab
 
-9. Copy the SSE URL and run `/customgpt:setup` in Claude Code
+9. Copy the URL and run `/customgpt:setup` in Claude Code
 
 ---
 

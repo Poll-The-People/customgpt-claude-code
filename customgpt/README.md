@@ -2,12 +2,20 @@
 
 Query your knowledge base directly from Claude Code. Get answers from your runbooks, specs, policies, and documentation with citations.
 
+## Installation
+
+```
+/plugin marketplace add Poll-The-People/customgpt-claude-code
+/plugin install customgpt
+```
+
 ## Setup (30 seconds)
 
 1. **Get your MCP URL** from [app.customgpt.ai](https://app.customgpt.ai):
    - Open your agent
-   - Click **Deploy** → **MCP Server (Beta)**
-   - Copy the **SSE URL**
+   - Click **Deploy** → **MCP Server - BETA**
+   - Click the **SSE** tab
+   - Copy the full URL
 
 2. **Run setup** in Claude Code:
    ```
